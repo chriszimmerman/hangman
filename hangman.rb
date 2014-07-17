@@ -1,6 +1,4 @@
-words = ["window", "vehicle", "abnormal", "environment", "wonderful", "aorta", "saxaphone"]
-
-word = words.shuffle.first.upcase
+word = File.readlines("words").sample(1).first[0..-2].upcase
 blanks = "_" * word.length 
 errors = ""
 
