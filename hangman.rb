@@ -55,7 +55,7 @@ hang = ["
 |   |
 |   O
 |  -|-
-|  / \
+|  / \\
 |____
 "]
 
@@ -64,7 +64,9 @@ def print_word(letters)
 	print "\n"
 end
 
-while blanks != word do
+game = true
+
+while game do
 	puts "Enter a letter:"
 	letter = gets.chomp[0].upcase
 
@@ -80,11 +82,20 @@ while blanks != word do
 		errors += letter
 	end
 
+	if blanks == word then
+		game = false
+
+		puts ""
+		puts "*********"
+		puts "YOU WIN!!"
+		puts "*********"
+	end 
+
 	if errors.length >= hang.length-1 then
+		game = false
 		puts hang[errors.length]
 		puts "The word was #{word}"
 		puts "GAME OVER"
-		blanks = word
 	else
 		puts hang[errors.length]
 		puts "Word:"
