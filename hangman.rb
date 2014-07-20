@@ -80,9 +80,16 @@ while blanks != word do
 		errors += letter
 	end
 
-	puts hang[errors.length]
-	puts "Word:"
-	print_word(blanks)
-	puts "Guesses:"
-	print_word(errors)
+	if errors.length >= hang.length-1 then
+		puts hang[errors.length]
+		puts "The word was #{word}"
+		puts "GAME OVER"
+		blanks = word
+	else
+		puts hang[errors.length]
+		puts "Word:"
+		print_word(blanks)
+		puts "Guesses:"
+		print_word(errors)
+	end
 end
