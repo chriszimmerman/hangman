@@ -68,39 +68,45 @@ game = true
 
 while game do
 	puts "Enter a letter:"
-	letter = gets.chomp[0].upcase
+	letter = gets.chomp.upcase 
 
-	found = false
-	word.split("").each_with_index { |l, index| 
-		if word[index] == letter then
-			blanks[index] = letter
-			found = true
+	if /^[A-Z]$/ =~ letter then
+		letter = letter[0]
+		found = false
+
+		word.split("").each_with_index { |l, index| 
+			if word[index] == letter then
+				blanks[index] = letter
+				found = true
+			end
+		}
+
+		unless found || errors.include?(letter) then
+			errors += letter
 		end
-	}
 
-	unless found then
-		errors += letter
-	end
+		if blanks == word then
+			game = false
 
-	if blanks == word then
-		game = false
+			puts ""
+			puts "*********"
+			puts "YOU WIN!!"
+			puts "*********"
+		end 
 
-		puts ""
-		puts "*********"
-		puts "YOU WIN!!"
-		puts "*********"
-	end 
-
-	if errors.length >= hang.length-1 then
-		game = false
-		puts hang[errors.length]
-		puts "The word was #{word}"
-		puts "GAME OVER"
+		if errors.length >= hang.length-1 then
+			game = false
+			puts hang[errors.length]
+			puts "The word was #{word}"
+			puts "GAME OVER"
+		else
+			puts hang[errors.length]
+			puts "Word:"
+			print_word(blanks)
+			puts "Guesses:"
+			print_word(errors)
+		end
 	else
-		puts hang[errors.length]
-		puts "Word:"
-		print_word(blanks)
-		puts "Guesses:"
-		print_word(errors)
+		puts "Enter one letter!"
 	end
 end
